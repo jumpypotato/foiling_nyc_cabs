@@ -91,17 +91,17 @@ The data is stored in two tables; trip_data and trip_fare.
   <tr>
     <td class="tg-yw4l">passenger_count</td>
     <td class="tg-yw4l">Number of passengers on the trip. Default value is 1.</td>
-    <td class="tg-yw4l">0 to 255.</td>
+    <td class="tg-yw4l">0 to 255</td>
   </tr>
   <tr>
     <td class="tg-b7b8">trip_time_in_secs</td>
     <td class="tg-b7b8">Trip time measured by the taximeter, in seconds.</td>
-    <td class="tg-b7b8">-6480 to 4294966.</td>
+    <td class="tg-b7b8">-6480 to 4294966</td>
   </tr>
   <tr>
     <td class="tg-yw4l">trip_distance</td>
     <td class="tg-yw4l">Trip distance measured by the taximeter, in meters.</td>
-    <td class="tg-yw4l">0 to 15331800.<br></td>
+    <td class="tg-yw4l">0 to 15331800<br></td>
   </tr>
   <tr>
     <td class="tg-b7b8">pickup_longitude</td>
@@ -126,6 +126,71 @@ The data is stored in two tables; trip_data and trip_fare.
 </table>
 <br><br>
 
+<table class="tg">
+  <tr>
+    <th class="tg-hgcj" colspan="3">trip_fare</th>
+  </tr>
+  <tr>
+    <td class="tg-e3zv">Attribute</td>
+    <td class="tg-e3zv">Description</td>
+    <td class="tg-e3zv">Range and Basic Statistics</td>
+  </tr>
+  <tr>
+    <td class="tg-031e">medallion</td>
+    <td class="tg-031e">Output of applying an MD5 hash on the unique alphanumeric code assigned to each cab.</td>
+    <td class="tg-031e"></td>
+  </tr>
+  <tr>
+    <td class="tg-031e">hack_license</td>
+    <td class="tg-031e">Output of applying an MD5 hash on the unique alphanumeric code assigned to each cab driver.</td>
+    <td class="tg-031e"></td>
+  </tr>
+  <tr>
+    <td class="tg-031e">vendor_id</td>
+    <td class="tg-031e">The vendor assigned to perform the Taxicab Passenger Enhancements Project (TPEP). VTS refers to work performed by Verifone Transportation Systems while CMT is for work by Mobile Knowledge Systems Inc.</td>
+    <td class="tg-031e"></td>
+  </tr>
+  <tr>
+    <td class="tg-031e">pickup_datetime</td>
+    <td class="tg-031e"></td>
+    <td class="tg-031e"></td>
+  </tr>
+  <tr>
+    <td class="tg-031e">payment_type</td>
+    <td class="tg-031e">CSH: Cash<br>CRD: Credit Card<br>NOC:<br>DIS: <br>UNK: Unknown</td>
+    <td class="tg-031e"></td>
+  </tr>
+  <tr>
+    <td class="tg-031e">fare_amount</td>
+    <td class="tg-031e">The meter fare, in USD.</td>
+    <td class="tg-031e">-0.01 to 999.99</td>
+  </tr>
+  <tr>
+    <td class="tg-031e">surcharge</td>
+    <td class="tg-031e">Extra fees, such as rush hour and overnight surcharges, in USD.</td>
+    <td class="tg-031e">9.8 to 999.99</td>
+  </tr>
+  <tr>
+    <td class="tg-031e">mta_tax</td>
+    <td class="tg-031e">Metropolitan commuter transportation mobility tax, in USD.</td>
+    <td class="tg-031e">-0.5 to 9</td>
+  </tr>
+  <tr>
+    <td class="tg-031e">tip_amount</td>
+    <td class="tg-031e">Tip amount, in USD.</td>
+    <td class="tg-031e">-0.05 to 99.99</td>
+  </tr>
+  <tr>
+    <td class="tg-031e">tolls_amount</td>
+    <td class="tg-031e">Total price paid for tolls, summed across all tolls for the trip, in USD.</td>
+    <td class="tg-031e">-1.5 to 99</td>
+  </tr>
+  <tr>
+    <td class="tg-031e">total_amount</td>
+    <td class="tg-031e">Total charges presented to the passenger at time of fare payment (includes tip for non-cash trips), in USD.</td>
+    <td class="tg-031e">-0.01 to 999.99</td>
+  </tr>
+</table>
 
 <br><br>
 In total, data from 173,179,759[1] trips in the year 2013[2]
