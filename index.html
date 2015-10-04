@@ -43,9 +43,105 @@ Fortunately, the internet is full of amazing people and the dataset met Google e
 <h3>
 <a id="think-big" class="anchor" href="#think-big" aria-hidden="true"><span class="octicon octicon-link"></span></a>Think Big</h3>
 
-<p>While it can be really tempting to jump directly into the data, it often helps to take stock of what is available to us, increasing the liklihood that we make good sense of the data.
+<p>Ideally, we should first come up with a set of hypotheses before delving into data collection/analysis. This is to decrease the likelihood that we frame the problem in a way that is overly limiting. Our case here is a little special as the data has already been creative. However, we should not let this luxury stifle our ability to get creative and imaginative about our analysis.
 <br><br>
 The data is stored in two tables; trip_data and trip_fare.
+<br><br>
+<table class="tg">
+  <tr>
+    <th class="tg-yw4l">Attribute</th>
+    <th class="tg-yw4l">Description</th>
+    <th class="tg-yw4l">Sample Values</th>
+    <th class="tg-yw4l">Range and Basic Statistics</th>
+  </tr>
+  <tr>
+    <td class="tg-b7b8">medallion</td>
+    <td class="tg-b7b8">Output of applying an MD5 hash on the unique alphanumeric code assigned to each cab.</td>
+    <td class="tg-b7b8"></td>
+    <td class="tg-b7b8">N/A</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">hack_license</td>
+    <td class="tg-yw4l">Output of applying an MD5 hash on the unique alphanumeric code assigned to each cab driver.</td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">N/A</td>
+  </tr>
+  <tr>
+    <td class="tg-b7b8">vendor_id</td>
+    <td class="tg-b7b8">The vendor assigned to perform the Taxicab Passenger Enhancements Project (TPEP). VTS refers to work performed by Verifone Transportation Systems while CMT is for work by Mobile Knowledge Systems Inc.</td>
+    <td class="tg-b7b8">CMT, VTS</td>
+    <td class="tg-b7b8">N/A</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">rate_code</td>
+    <td class="tg-yw4l">Taximeter rate. </td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l"></td>
+  </tr>
+  <tr>
+    <td class="tg-b7b8">store_and_fwd_flag</td>
+    <td class="tg-b7b8">Unknown attribute.</td>
+    <td class="tg-b7b8">null, yes, no</td>
+    <td class="tg-b7b8"></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">pickup_datetime</td>
+    <td class="tg-yw4l">Start timestamp of the trip. Presented in the format mm-dd-yyyy hh24:mm:ss.</td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l"></td>
+  </tr>
+  <tr>
+    <td class="tg-b7b8">dropoff_datetime</td>
+    <td class="tg-b7b8">End timestamp of the trip. Presented in the format mm-dd-yyyy hh24:mm:ss.</td>
+    <td class="tg-b7b8"></td>
+    <td class="tg-b7b8"></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">passenger_count</td>
+    <td class="tg-yw4l">Number of passengers on the trip. Default value is 1.</td>
+    <td class="tg-yw4l">0, 3, 5</td>
+    <td class="tg-yw4l">0 to 255.</td>
+  </tr>
+  <tr>
+    <td class="tg-b7b8">trip_time_in_secs</td>
+    <td class="tg-b7b8">Trip time measured by the taximeter, in seconds.</td>
+    <td class="tg-b7b8"></td>
+    <td class="tg-b7b8">-6480 to 4294966.</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">trip_distance</td>
+    <td class="tg-yw4l">Trip distance measured by the taximeter, in meters.</td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">0 to 15331800.<br></td>
+  </tr>
+  <tr>
+    <td class="tg-b7b8">pickup_longitude</td>
+    <td class="tg-b7b8">GPS longtitude coordinate of the pickup location.</td>
+    <td class="tg-b7b8"></td>
+    <td class="tg-b7b8">-0.000002 to 98.158493</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">pickup_latitude</td>
+    <td class="tg-yw4l">GPS latitude coordinate of the pickup location.</td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">-0.000002 to 96.685364</td>
+  </tr>
+  <tr>
+    <td class="tg-b7b8">dropoff_longitude</td>
+    <td class="tg-b7b8">GPS longitude coordinate of the drop off location.</td>
+    <td class="tg-b7b8"></td>
+    <td class="tg-b7b8">-0.000002 to 98.158493</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">dropoff_latitude</td>
+    <td class="tg-yw4l">GPS latitude coordinate of the drop off location.</td>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">-0.000008 to 948.20953</td>
+  </tr>
+</table>
+<br><br>
+
+
 <br><br>
 In total, data from 173,179,759[1] trips in the year 2013[2]
 
