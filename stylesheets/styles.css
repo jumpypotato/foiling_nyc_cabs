@@ -53,7 +53,7 @@ a small {
 }
 
 .wrapper {
-  width:760;
+  width:auto;
 }
 
 blockquote {
@@ -102,7 +102,7 @@ img {
 }
 
 header {
-  width:270px;
+  width:25%;
   float:left;
   position:fixed;
 }
@@ -166,7 +166,7 @@ header ul a strong {
 }
 
 section {
-  width:960;
+  width:75%;
   float:right;
   padding-bottom:50px;
 }
