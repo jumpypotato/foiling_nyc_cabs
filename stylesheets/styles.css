@@ -1,7 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
 
 body {
-  margin: 0;
   padding: 50px;
   font:14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
   color:#777;
@@ -14,7 +13,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p, ul, ol, table, pre, dl {
-  margin:0 0 0px;
+  margin:0 0 20px;
 }
 
 h1, h2, h3 {
@@ -48,7 +47,6 @@ a small {
 
 .wrapper {
   width:760px;
-  margin:0 auto;
 }
 
 blockquote {
