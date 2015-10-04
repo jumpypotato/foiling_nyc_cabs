@@ -22,7 +22,7 @@
       </header>
       <section>
         <h3>
-<a id="background" class="anchor" href="#background" aria-hidden="true"><span class="octicon octicon-link"></span></a>Background.</h3>
+<a id="background" class="anchor" href="#background" aria-hidden="true"><span class="octicon octicon-link"></span></a>Background</h3>
 
 <p> With the <a href="https://en.wikipedia.org/wiki/Legal_status_of_Uber%27s_service">hype</a> around the legality of Uber in many of the cities that it operates in, it makes all the sense to find out more about the people most affected by this disruptive force; the licensed taxi operators.
 
@@ -51,91 +51,76 @@ The data is stored in two tables; trip_data and trip_fare.
   <tr>
     <th class="tg-yw4l">Attribute</th>
     <th class="tg-yw4l">Description</th>
-    <th class="tg-yw4l">Sample Values</th>
     <th class="tg-yw4l">Range and Basic Statistics</th>
   </tr>
   <tr>
     <td class="tg-b7b8">medallion</td>
     <td class="tg-b7b8">Output of applying an MD5 hash on the unique alphanumeric code assigned to each cab.</td>
-    <td class="tg-b7b8"></td>
     <td class="tg-b7b8">N/A</td>
   </tr>
   <tr>
     <td class="tg-yw4l">hack_license</td>
     <td class="tg-yw4l">Output of applying an MD5 hash on the unique alphanumeric code assigned to each cab driver.</td>
-    <td class="tg-yw4l"></td>
     <td class="tg-yw4l">N/A</td>
   </tr>
   <tr>
     <td class="tg-b7b8">vendor_id</td>
     <td class="tg-b7b8">The vendor assigned to perform the Taxicab Passenger Enhancements Project (TPEP). VTS refers to work performed by Verifone Transportation Systems while CMT is for work by Mobile Knowledge Systems Inc.</td>
-    <td class="tg-b7b8">CMT, VTS</td>
     <td class="tg-b7b8">N/A</td>
   </tr>
   <tr>
     <td class="tg-yw4l">rate_code</td>
     <td class="tg-yw4l">Taximeter rate. </td>
     <td class="tg-yw4l"></td>
-    <td class="tg-yw4l"></td>
   </tr>
   <tr>
     <td class="tg-b7b8">store_and_fwd_flag</td>
     <td class="tg-b7b8">Unknown attribute.</td>
-    <td class="tg-b7b8">null, yes, no</td>
     <td class="tg-b7b8"></td>
   </tr>
   <tr>
     <td class="tg-yw4l">pickup_datetime</td>
     <td class="tg-yw4l">Start timestamp of the trip. Presented in the format mm-dd-yyyy hh24:mm:ss.</td>
     <td class="tg-yw4l"></td>
-    <td class="tg-yw4l"></td>
   </tr>
   <tr>
     <td class="tg-b7b8">dropoff_datetime</td>
     <td class="tg-b7b8">End timestamp of the trip. Presented in the format mm-dd-yyyy hh24:mm:ss.</td>
     <td class="tg-b7b8"></td>
-    <td class="tg-b7b8"></td>
   </tr>
   <tr>
     <td class="tg-yw4l">passenger_count</td>
     <td class="tg-yw4l">Number of passengers on the trip. Default value is 1.</td>
-    <td class="tg-yw4l">0, 3, 5</td>
     <td class="tg-yw4l">0 to 255.</td>
   </tr>
   <tr>
     <td class="tg-b7b8">trip_time_in_secs</td>
     <td class="tg-b7b8">Trip time measured by the taximeter, in seconds.</td>
-    <td class="tg-b7b8"></td>
     <td class="tg-b7b8">-6480 to 4294966.</td>
   </tr>
   <tr>
     <td class="tg-yw4l">trip_distance</td>
     <td class="tg-yw4l">Trip distance measured by the taximeter, in meters.</td>
-    <td class="tg-yw4l"></td>
     <td class="tg-yw4l">0 to 15331800.<br></td>
   </tr>
   <tr>
     <td class="tg-b7b8">pickup_longitude</td>
     <td class="tg-b7b8">GPS longtitude coordinate of the pickup location.</td>
-    <td class="tg-b7b8"></td>
     <td class="tg-b7b8">-0.000002 to 98.158493</td>
   </tr>
   <tr>
     <td class="tg-yw4l">pickup_latitude</td>
     <td class="tg-yw4l">GPS latitude coordinate of the pickup location.</td>
-    <td class="tg-yw4l"></td>
     <td class="tg-yw4l">-0.000002 to 96.685364</td>
   </tr>
   <tr>
     <td class="tg-b7b8">dropoff_longitude</td>
     <td class="tg-b7b8">GPS longitude coordinate of the drop off location.</td>
-    <td class="tg-b7b8"></td>
     <td class="tg-b7b8">-0.000002 to 98.158493</td>
   </tr>
   <tr>
     <td class="tg-yw4l">dropoff_latitude</td>
     <td class="tg-yw4l">GPS latitude coordinate of the drop off location.</td>
-    <td class="tg-yw4l"></td>
     <td class="tg-yw4l">-0.000008 to 948.20953</td>
   </tr>
 </table>
