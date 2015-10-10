@@ -171,6 +171,11 @@ section {
   padding-bottom:50px;
 }
 
+sub-section {
+   width: 65%
+   float:right;
+}
+
 small {
   font-size:11px;
 }
