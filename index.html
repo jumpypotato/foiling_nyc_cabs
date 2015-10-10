@@ -558,6 +558,17 @@
       ii. trip_time_in_secs
     </h4>
     <p>
+      The negative trip time certainly raises some red flags. It turns out that this value is derived from the difference between dropoff_datetime and pickup_datetime. We will be able to get rid of all errors here by removing all instances where dropoff_datetime occurs before pickup_datetime.
+    </p>
+    <h4>
+      <a id="trip_distance" class="anchor" href="#trip_distance" aria-hidden="true">
+        <span class="octicon octicon-link">
+        </span>
+      </a>
+      iii. trip_distance
+    </h4>
+    <p>
+      trip distance
     </p>
     <h3>
       <a id="credits" class="anchor" href="#credits" aria-hidden="true">
