@@ -152,7 +152,7 @@
           </tr>
           <tr>
             <td class="tg-031e">pickup_datetime</td>
-            <td class="tg-031e"></td>
+            <td class="tg-031e">Start timestamp of the trip. Presented in the format mm-dd-yyyy hh24:mm:ss.</td>
             <td class="tg-031e"></td>
           </tr>
           <tr>
@@ -266,11 +266,13 @@
         A quick check with the <a href="http://www.nyc.gov/html/tlc/html/faq/faq_pass.shtml#3">NYC Taxi & Limousine Commission</a> reveals that the maximum legal number of passengers in a medallion is 4. 
         <br><br>
         Therefore, it is pretty amusing to see the high instances of extreme honesty from medallion drivers with 5 or 6 passengers, or maybe its simply a case of <a href="https://en.wikipedia.org/wiki/Typographical_error">fat finger syndrome</a>? As we are uncertain of the mechanism of how this field is captured, we shall set the error-free limits of this field to be between 1 and 6, ends inclusive.
-        </p>
-        <p>            
-        <h4>
+        
+<h4>
           <a id="trip_time_in_secs" class="anchor" href="#trip_time_in_secs" aria-hidden="true"><span class="octicon octicon-link"></span></a>ii. trip_time_in_secs
         </h4>
+        </p>
+        <p>
+
         Retry formatting</p>
         <h3>
           <a id="credits" class="anchor" href="#credits" aria-hidden="true"><span class="octicon octicon-link"></span></a>Credits
