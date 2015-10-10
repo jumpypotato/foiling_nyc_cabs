@@ -5,7 +5,7 @@
    margin:0;
 }
 
-body {
+body {s
   margin-left: 5%;
   margin-right: 5%;
   padding: 30px;
@@ -165,11 +165,7 @@ header ul a strong {
   color:#222;
 }
 
-section {
-  width:70%;
-  float:right;
-  padding-bottom:50px;
-}
+
 
 small {
   font-size:11px;
