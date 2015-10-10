@@ -5,7 +5,7 @@
    margin:0;
 }
 
-body {s
+body {
   margin-left: 5%;
   margin-right: 5%;
   padding: 30px;
@@ -169,10 +169,6 @@ section {
   width:70%;
   float:right;
   padding-bottom:50px;
-}
-
-sub-section {
-   width:90%;
 }
 
 small {
