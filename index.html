@@ -51,6 +51,9 @@ The data is stored in two tables; trip_data and trip_fare.
 <br>
 
 <table class="tg">
+  <col style="width:30%">
+  <col style="width:40%">
+  <col style="width:30%">
   <tr>
     <th class="tg-hgcj" colspan="3">trip_data</th>
   </tr>
@@ -132,13 +135,16 @@ The data is stored in two tables; trip_data and trip_fare.
 </table>
 
 <table class="tg">
+  <col style="width:30%">
+  <col style="width:40%">
+  <col style="width:30%">
   <tr>
     <th class="tg-hgcj" colspan="3">trip_fare</th>
   </tr>
   <tr>
-    <td class="tg-e3zv">Attribute</td>
-    <td class="tg-e3zv">Description</td>
-    <td class="tg-e3zv">Range and Basic Statistics</td>
+    <th class="tg-e3zv">Attribute</th>
+    <th class="tg-e3zv">Description</th>
+    <th class="tg-e3zv">Range and Basic Statistics</th>
   </tr>
   <tr>
     <td class="tg-031e">medallion</td>
@@ -208,7 +214,7 @@ In total, data from 173,179,759[1] trips in the year 2013[2]
 <p>
 Those with a keen sense of observation should by now realize that there is something funky is going on with some of the data. 
 <br><br>
-For example, there are instances where drivers have reported having 0, 129, 208 or 255 passengers. Last I checked, it is pretty difficult to get that many people into a car, and having 0 passengers sounds a lot like the plot of the next blockbuster horror. Let's proceed field by field to squash all these errors.
+For example, having a range of 0 to 255 for passenger count certainly looks fishy. Last I checked, it is pretty difficult to get that many people into a car, and having 0 passengers sounds a lot like the plot of the next blockbuster horror. Let's proceed field by field to squash all these errors.
 </p>
 
 <h4>
@@ -217,8 +223,6 @@ For example, there are instances where drivers have reported having 0, 129, 208 
 
 <p>
 <table class="tg">
-  <col style="width:60%">
-  <col style="width:40%">
   <tr>
     <th class="tg-yw4l">passenger_count</th>
     <th class="tg-yw4l">count</th>
@@ -277,7 +281,9 @@ For example, there are instances where drivers have reported having 0, 129, 208 
   </tr>
 </table>
 
-Text.
+A quick check at the <a href="http://www.nyc.gov/html/tlc/html/faq/faq_pass.shtml#3">NYC Taxi & Limousine Commission</a> reveals that the maximum legal number of passengers in a medallion is 4. 
+<br><br>
+It is pretty amusing to see the high instances of extreme honesty from medallion drivers with 5 or 6 passengers, or maybe its simply a case of <a href="https://en.wikipedia.org/wiki/Typographical_error">fat finger syndrome</a>? As we are uncertain of the mechanism of how this field is captured, we shall set the error-free limits of this field to be between 1 and 6, ends inclusive.
 
 </p>
 
