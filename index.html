@@ -325,7 +325,7 @@
               The meter fare, in USD.
             </td>
             <td class="tg-031e">
-              -0.01 to 999.99
+              -1430 to 158995.81
             </td>
           </tr>
           <tr>
@@ -396,7 +396,7 @@
         For example, having a range of 0 to 255 for passenger count certainly looks fishy. Last I checked, it is pretty difficult to get that many people into a car, and having 0 passengers sounds a lot like the plot of the next blockbuster horror. Let's proceed field by field to squash all these errors.
       </p>
       <h4>
-        i. passenger_count
+        i. Passenger Count
       </h4>
       <p>
         <table class="tg">
@@ -531,17 +531,33 @@
     </p>
     
     <h4>
-      ii. trip_time_in_secs
+      ii. Trip Time
     </h4>
     <p>
-      The negative trip time certainly raises some red flags. It turns out that this value is derived from the difference between dropoff_datetime and pickup_datetime. We will be able to get rid of all errors here by removing all instances where dropoff_datetime occurs before pickup_datetime.
+      The large number of negative trip times seem to suggest that many amongst us have mastered time travel. Unfortunately, we will have to remove them from our population. This can be easily done by requiring that trip time be equal to the difference between the drop off and pick-up times. This will leave us with quite a few trips where trip time is zero, which we will remove too. 
     </p>
+    
     <h4>
-      iii. trip_distance
+      iii. Trip Distance
     </h4>
     <p>
-      trip distance
+      Should not violate the straightline distance between 2 points
     </p>
+    
+    <h4>
+      iv. GPS Coordinates of Pickup and Dropoff Locations
+    </h4>
+    <p>
+      GPS placeholder
+    </p>
+    
+    <h4>
+      iv. Fare Amount
+    </h4>
+    <p>
+      GPS placeholder
+    </p>
+    
     <h3>
       Credits
     </h3>
