@@ -552,10 +552,38 @@
     </p>
     
     <h4>
-      iv. Fare Amount
+      v. Fare Amount
     </h4>
     <p>
-      GPS placeholder
+      Fare Amount placeholder
+    </p>
+    
+    <h4>
+      vi. Total Amount
+    </h4>
+    <p>
+      While it appears that we're on an erroenous data zapping spree, this field deserves a second look. 
+      
+      <table class="tg">
+  <tr>
+    <th class="tg-yw4l">fare_amount</th>
+    <th class="tg-yw4l">surcharge</th>
+    <th class="tg-yw4l">mta_tax</th>
+    <th class="tg-yw4l">tip_amount</th>
+    <th class="tg-yw4l">tolls_amount</th>
+    <th class="tg-yw4l">total_amount</th>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">33</td>
+    <td class="tg-yw4l">0.5</td>
+    <td class="tg-yw4l">0.5</td>
+    <td class="tg-yw4l">0</td>
+    <td class="tg-yw4l">0</td>
+    <td class="tg-yw4l">685908.1</td>
+  </tr>
+</table>
+
+Indeed, there appears to be records where the only erroneous field is total_amount. Therefore, we will instead derive this field ourselves and ignore the given values.
     </p>
     
     <h3>
