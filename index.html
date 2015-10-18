@@ -548,14 +548,20 @@
       iv. GPS Coordinates of Pickup and Dropoff Locations
     </h4>
     <p>
-      GPS placeholder
+      Most of us are not geographers, and thank god to Google for the rescue. <a href="http://library.oceanteacher.org/OTMediawiki/index.php/Geolocation_by_Latitude_and_Longitude">Oceanteacher.org</a> tells us that the geo-coordindate system works by taking the center (0,0), a point somewhere in the Gulf of Guinea.
+      <br><br>
+      A +90 latitude brings us to the North Pole, while -90, you guessed it, represents the South Pole. Longitude ranges from -180 to 180, which sums up to 360 degrees.
+      <br><br>
+      We can definitely do better than simply removing all values out of range. While it has been difficult to get a definitive answer of valid coordinates in New York, let's start by restricting longitude to be between -72.00 to -76.00, and latitude to range from 40.00 to 42.00.
     </p>
     
     <h4>
       v. Fare Amount
     </h4>
     <p>
-      Fare Amount placeholder
+      As of 2010, the <a href="http://www.nyc.gov/html/tlc/html/passenger/taxicab_rate.shtml">NYC Taxi & Limousine Commission</a> has set the initial fares to be $2.50. This makes our task of clearing the strange and hilarous negative fares a little easier.
+      <br><br>
+      Determining the valid amount for the upper bound of this is a little more involved though. I sure hope to be the driver that received a cool $158,995.81 for a single trip. Luckily, it appears that most of the strangely high amounts are resolved once we remove the instances of abnormal GPS coordinates.
     </p>
     
     <h4>
@@ -583,7 +589,7 @@
   </tr>
 </table>
 
-Indeed, there appears to be records where the only erroneous field is total_amount. Therefore, we will instead derive this field ourselves and ignore the given values.
+Indeed, there appears to be records where the only erroneous field is total_amount. Therefore, we will instead derive this field ourselves and ignore the provided values.
     </p>
     
     <h3>
