@@ -599,9 +599,28 @@
   </tr>
 </table>
 
-Indeed, there appears to be records where the only erroneous field is total_amount. Therefore, we will instead derive this field ourselves and ignore the provided values.
+Indeed, there are records where the only erroneous field is total_amount. Therefore, we will instead derive this field ourselves and ignore this field.
     </p>
-    
+  
+    <h4>
+      vii. Attack of the Clones
+    </h4>
+  <p>
+    We have a long way to having a cleaner dataset. However, you will notice an anomaly when you join the tables on medallion, hack license and pickup times. There will be a huge, unexplainable spike in the number of rides in September.
+   <br><br>
+   It turns out that in the trip_fare table, each September record has been repeated once. We will need to account for this when performing the table joins.
+  </p>
+
+<h4>
+  Clean Data?
+</h4>
+<p>
+  Putting it together, we arrive at the query ... It is worthwhile to note that it is extremely likely that someone looking at this dataset will arrive at different insights from us, and that is totally alright. 
+  <br><br>
+  Knowing how we got to our conclusions and ensuring that it is repeatable is far more important.
+</p>
+
+
     <h3>
       Credits
     </h3>
