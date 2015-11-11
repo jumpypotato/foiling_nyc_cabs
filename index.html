@@ -399,7 +399,7 @@
         Cleaning the Medallions
       </h3>
       <p>
-        Those with a keen sense of observation should by now realize that there is something funky is going on with some of the data. 
+        Those with a keen sense of observation should realize by now that there is something funky is going on with parts of the data. 
         <br>
         <br>
         For example, having a range of 0 to 255 for passenger count certainly looks fishy. Last I checked, it is pretty difficult to get that many people into a car, and having 0 passengers sounds a lot like the plot of the next blockbuster horror. Let's proceed field by field to squash all these errors.
@@ -550,7 +550,9 @@
       iii. Trip Distance
     </h4>
     <p>
-      Should not violate the straightline distance between 2 points
+      We will take a simple approach to this and simply remove all entries where trip distance is zero. 
+      <br>
+      A more complex approach will involve ensuring that the distance travelled is not smaller the cartesian (straight-line) distance between the pickup and dropoff points, as that is physically impossible.
     </p>
     
     <h4>
