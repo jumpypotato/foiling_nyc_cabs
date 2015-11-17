@@ -571,7 +571,7 @@
     <p>
       As of 2010, the <a href="http://www.nyc.gov/html/tlc/html/passenger/taxicab_rate.shtml">NYC Taxi & Limousine Commission</a> has set the initial fares to be $2.50. This makes our task of clearing the strange and hilarous negative fares a little easier.
       <br><br>
-      Determining the valid amount for the upper bound of this is a little more involved though. I sure hope to be the driver that received a cool $158,995.81 for a single trip. Luckily, it appears that most of the strangely high amounts are resolved once we remove the instances of abnormal GPS coordinates.
+      Another area which deserves our attention is the large numbers of folks who appear to be over or underpaying their fares due to dodgy travel distances logged. We take a rather liberal approach here and remove any entries where the cost per mile is less than $2.50 or more than $30.00.
     </p>
     
     <h4>
