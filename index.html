@@ -45,9 +45,9 @@
           <br>
           If you love data (and lots of it), you're in for a real treat! 
         </p>
-        <h3>
+        <h2>
           Show Me The Data
-        </h3>
+        </h2>
         <p>
           Traditionally, one would have to conduct laborous surveys, one taxi operator at a time. The data was initially retrieved by Chris Whong, a data visualization analyst, through a FOIL (Freedom of Information Law) request. In its entirety, it comes in at a whopping 18.7gb compressed.
           <br>
@@ -58,9 +58,9 @@
           </a>
           .
         </p>
-        <h3>
+        <h2>
           Think Big
-        </h3>
+        </h2>
         <p>
           Ideally, we should first come up with a set of hypotheses before delving into data collection/analysis. This is to decrease the likelihood that we frame the problem in a way that is overly limiting. Our case here is a little special as the data has already been creative. However, we should not let this luxury stifle our ability to get creative and imaginative about our analysis.
           <br>
@@ -394,18 +394,18 @@
           </tr>
         </table>
       </p>
-      <h3>
+      <h2>
         Cleaning the Medallions
-      </h3>
+      </h2>
       <p>
         Those with a keen sense of observation will realize that there is something funky going on with parts of the data. 
         <br>
         <br>
         For example, passenger counts ranging from 0 to 255 sure look fishy. Last I checked, it is pretty difficult to get that many people into a car, and having 0 passengers sounds a lot like the plot of the next blockbuster horror. Let's proceed field by field to squash these errors.
       </p>
-      <h4>
+      <h3>
         i. Passenger Count
-      </h4>
+      </h3>
       <p>
         <table class="tg">
           <col style="width:30%">
@@ -538,25 +538,25 @@
       ? As we are uncertain of the mechanism of how this field is captured, we shall set the error-free limits of this field to be between 1 and 6, ends inclusive.
     </p>
     
-    <h4>
+    <h3>
       ii. Trip Time
-    </h4>
+    </h3>
     <p>
       The large number of negative trip times seem to suggest that many amongst us have mastered time travel. Unfortunately, we will have to remove them from our population. This can be easily done by requiring that trip time be equal to the difference between the drop off and pick-up times. This will leave us with quite a few trips where trip time is zero, which we will remove too. 
     </p>
     
-    <h4>
+    <h3>
       iii. Trip Distance
-    </h4>
+    </h3>
     <p>
       We will take a simple approach to this and simply remove all entries where trip distance is zero. 
       <br>
       A more complex approach will involve ensuring that the distance travelled is not smaller the cartesian (straight-line) distance between the pickup and dropoff points, as that is physically impossible.
     </p>
     
-    <h4>
+    <h3>
       iv. GPS Coordinates of Pickup and Dropoff Locations
-    </h4>
+    </h3>
     <p>
       Most of us are not geographers, and thank god to Google for the rescue. <a href="http://library.oceanteacher.org/OTMediawiki/index.php/Geolocation_by_Latitude_and_Longitude">Oceanteacher.org</a> tells us that the geo-coordindate system works by taking the center (0,0), a point somewhere in the Gulf of Guinea.
       <br><br>
@@ -565,18 +565,18 @@
       We can definitely do better by removing all values out of range. According to <a href="http://www.netstate.com/states/geography/ny_geography.htm">Netstate</a>, New York spans a longitude of -79.4554 to -71.4725, and a latitude of 40.2940 to 45.042.
     </p>
     
-    <h4>
+    <h3>
       v. Fare Amount
-    </h4>
+    </h3>
     <p>
       As of 2010, the <a href="http://www.nyc.gov/html/tlc/html/passenger/taxicab_rate.shtml">NYC Taxi & Limousine Commission</a> has set the initial fares to be $2.50. This makes our task of clearing the strange and hilarous negative fares a little easier.
       <br><br>
       Another area which deserves our attention is the large numbers of folks who appear to be over or underpaying their fares due to dodgy travel distances logged. We take a rather liberal approach here and remove any entries where the cost per mile is less than $2.50 or more than $30.00.
     </p>
     
-    <h4>
+    <h3>
       vi. Total Amount
-    </h4>
+    </h3>
     <p>
       While it appears that we're on an erroenous data zapping spree, this field deserves a second look. 
       
@@ -602,9 +602,9 @@
 Indeed, there are records where the only erroneous field is total_amount. Therefore, we will instead derive this field ourselves and ignore this field.
     </p>
   
-    <h4>
+    <h3>
       vii. Attack of the Clones
-    </h4>
+    </h3>
   <p>
     We have a long way to having a cleaner dataset. However, you will notice an anomaly when you join the tables on medallion, hack license and pickup times. There will be a huge, unexplainable spike in the number of rides in September.
    <br>
@@ -613,26 +613,26 @@ Indeed, there are records where the only erroneous field is total_amount. Theref
    It turns out that in the trip_fare table, each September record has been repeated once. We will need to account for this when performing the table joins.
   </p>
 
-<h3>
+<h2>
   Let the Analysis Begin!
-</h3>
+</h2>
 <p>
   Putting it together, we arrive at a query that filters out data we identified as erroneous. It is worth noting that another person looking at this dataset will come to slightly (or totally!) different conclusions, and this is totally alright. The key is knowing how we arrive at our conclusions and being able to intelligently weight the pros and cons on the treatment of the raw data.
 </p>
 
 
-    <h3>
+    <h2>
       Credits
-    </h3>
+    </h2>
     <p>
       <a href="http://chriswhong.com">
         Chris Whong - For invoking FOIL (The Freedom of Information Law) to retrieve this amazing dataset.
       </a>
       
     </p>
-    <h3>
+    <h2>
       Appendix
-    </h3>
+    </h2>
     <p>
     </p>
   </section>
