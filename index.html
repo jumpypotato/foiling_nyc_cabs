@@ -398,10 +398,10 @@
         Cleaning the Medallions
       </h3>
       <p>
-        Those with a keen sense of observation should realize by now that there is something funky is going on with parts of the data. 
+        Those with a keen sense of observation will realize that there is something funky going on with parts of the data. 
         <br>
         <br>
-        For example, having a range of 0 to 255 for passenger count certainly looks fishy. Last I checked, it is pretty difficult to get that many people into a car, and having 0 passengers sounds a lot like the plot of the next blockbuster horror. Let's proceed field by field to squash all these errors.
+        For example, passenger counts ranging from 0 to 255 sure look fishy. Last I checked, it is pretty difficult to get that many people into a car, and having 0 passengers sounds a lot like the plot of the next blockbuster horror. Let's proceed field by field to squash these errors.
       </p>
       <h4>
         i. Passenger Count
@@ -613,11 +613,11 @@ Indeed, there are records where the only erroneous field is total_amount. Theref
    It turns out that in the trip_fare table, each September record has been repeated once. We will need to account for this when performing the table joins.
   </p>
 
-<h4>
-  Clean Data?
-</h4>
+<h3>
+  Let the Analysis Begin!
+</h3>
 <p>
-  Putting it together, we arrive at the query ... It is worthwhile to note that it is extremely likely that someone looking at this dataset will arrive at different insights from us, and that is totally alright. 
+  Putting it together, we arrive at a query that filters out data we identified as erroneous. It is worth noting that another person looking at this dataset will come to slightly different conclusions, and that is totally alright. 
   <br><br>
   Knowing how we got to our conclusions and ensuring that it is repeatable is far more important.
 </p>
