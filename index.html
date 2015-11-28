@@ -607,9 +607,9 @@ Indeed, there are records where the only erroneous field is total_amount. Theref
     </h4>
   <p>
     We have a long way to having a cleaner dataset. However, you will notice an anomaly when you join the tables on medallion, hack license and pickup times. There will be a huge, unexplainable spike in the number of rides in September.
-   <br>
-   <img src="https://github.com/jumpypotato/foiling_nyc_cabs/blob/gh-pages/images/duplicated_sep_fares.png" alt="duplicated september fares">
-   <br>
+   <br><br>
+   <img src="/images/duplicated_sep_fares.png" alt="duplicated september fares">
+   <br><br>
    It turns out that in the trip_fare table, each September record has been repeated once. We will need to account for this when performing the table joins.
   </p>
 
