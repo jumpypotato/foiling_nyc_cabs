@@ -46,7 +46,7 @@
           If you love data (and lots of it), you're in for a real treat! 
         </p>
         <h2>
-          Show Me The Data
+          Show Me the Data
         </h2>
         <p>
           Traditionally, one would have to conduct laborous surveys, one taxi operator at a time. The data was initially retrieved by Chris Whong, a data visualization analyst, through a FOIL (Freedom of Information Law) request. In its entirety, it comes in at a whopping 18.7gb compressed.
@@ -606,7 +606,7 @@ Indeed, there are records where the only erroneous field is total_amount. Theref
       vii. Attack of the Clones
     </h3>
   <p>
-    We have a long way to having a cleaner dataset. However, you will notice an anomaly when you join the tables on medallion, hack license and pickup times. There will be a huge, unexplainable spike in the number of rides in September.
+    We have come a long way to coming up with a cleaner dataset. However, you will notice an anomaly when you join the tables on medallion, hack license and pickup times.
    <br>
    <img src="images/duplicated_sep_fares.png" alt="duplicated september fares" class="inline"/>
    <br>
@@ -618,6 +618,10 @@ Indeed, there are records where the only erroneous field is total_amount. Theref
 </h2>
 <p>
   Putting it together, we arrive at a query that filters out data we identified as erroneous. It is worth noting that another person looking at this dataset will come to slightly (or totally!) different conclusions, and this is totally alright. The key is knowing how we arrive at our conclusions and being able to intelligently weight the pros and cons on the treatment of the raw data.
+  <br>
+  <img src="images/original_vs_cleaned.png" alt="original versus cleaned data by month" class="inline"/>
+  <br>
+  Across each month, with the exception of May and June, the cleaned dataset maintains the same ridership trends as the original dataset.
 </p>
 
 
