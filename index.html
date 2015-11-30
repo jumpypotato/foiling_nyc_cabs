@@ -608,9 +608,9 @@ Indeed, there are records where the only erroneous field is total_amount. Theref
   <p>
     We have come a long way to coming up with a cleaner dataset. However, you will notice an anomaly when you join the tables on medallion, hack license and pickup times.
    <br>
-   <img src="images/duplicated_sep_fares.png" alt="duplicated september fares" class="inline"/>
+   <img src="images/original.png" alt="duplicated september fares" class="inline"/>
    <br>
-   It turns out that in the trip_fare table, each September record has been repeated once. We will need to account for this when performing the table joins.
+   The spike isn't due to people suddenly feeling great urges to take cabs in September. It is due to the fare data for September being duplicated in the trip_fare table, which we will have to account for and remove.
   </p>
 
 <h2>
