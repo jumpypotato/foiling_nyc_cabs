@@ -1,663 +1,649 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>
-      Foiling NYC Cabs
-    </title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-<script src="//html5shiv.googlecode.com/svn/trunk/html5.js">
-</script>
-<![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>
-          Big Querying the Medallions
-        </h1>
-        <p>
-        </p>
-        <p class="view">
-          <a href="https://github.com/jumpypotato/foiling_nyc_cabs">
-            View the Project on GitHub 
-            <small>
-              jumpypotato/foiling_nyc_cabs
-            </small>
-          </a>
-        </p>
-      </header>
-      <section>
-        <h2>
-          Background
-        </h2>
-        <p>
-          With the 
-          <a href="https://en.wikipedia.org/wiki/Legal_status_of_Uber%27s_service">
-            hype
-          </a>
-          around the legality of Uber in many of the cities that it operates in, it makes all the sense to find out more about the people most affected by this disruptive force; the licensed taxi operators.
-          <br>
-          <br>
-          If you love data (and lots of it), you're in for a real treat! 
-        </p>
-        <h2>
-          Show Me the Data
-        </h2>
-        <p>
-          Traditionally, one would have to conduct laborous surveys, one taxi operator at a time. The data was initially retrieved by Chris Whong, a data visualization analyst, through a FOIL (Freedom of Information Law) request. In its entirety, it comes in at a whopping 18.7gb compressed.
-          <br>
-          <br>
-          Fortunately, the internet is full of amazing people and the dataset met Google engineer Jason Hall. It now lives happily as a 
-          <a href="https://bigquery.cloud.google.com/table/imjasonh-storage:nyctaxi.trip_fare">
-            Google Big Query project
-          </a>
-          .
-        </p>
-        <h2>
-          Think Big
-        </h2>
-        <p>
-          Ideally, we should first come up with a set of hypotheses before delving into data collection/analysis. This is to decrease the likelihood that we frame the problem in a way that is overly limiting. Our case here is a little special as the data has already been creative. However, we should not let this luxury stifle our ability to get creative and imaginative about our analysis.
-          <br>
-          <br>
-          The data is stored in two tables; trip_data and trip_fare.
-          <br>
-          <table class="tg">
-            <col style="width:25%">
-            <col style="width:45%">
-            <col style="width:30%">
-            <tr>
-              <th class="tg-hgcj" colspan="3">
-                trip_data
-              </th>
-            </tr>
-            <tr>
-              <th class="tg-yw4l">
-                Attribute
-              </th>
-              <th class="tg-yw4l">
-                Description
-              </th>
-              <th class="tg-yw4l">
-                Range
-              </th>
-            </tr>
-            <tr>
-              <td class="tg-b7b8">
-                medallion
-              </td>
-              <td class="tg-b7b8">
-                Output of applying an MD5 hash on the unique alphanumeric code assigned to each cab.
-              </td>
-              <td class="tg-b7b8">
-                N/A
-              </td>
-            </tr>
-            <tr>
-              <td class="tg-yw4l">
-                hack_license
-              </td>
-              <td class="tg-yw4l">
-                Output of applying an MD5 hash on the unique alphanumeric code assigned to each cab driver.
-              </td>
-              <td class="tg-yw4l">
-                N/A
-              </td>
-            </tr>
-            <tr>
-              <td class="tg-b7b8">
-                vendor_id
-              </td>
-              <td class="tg-b7b8">
-                The vendor assigned to perform the Taxicab Passenger Enhancements Project (TPEP). VTS refers to work performed by Verifone Transportation Systems while CMT is for work by Mobile Knowledge Systems Inc.
-              </td>
-              <td class="tg-b7b8">
-                N/A
-              </td>
-            </tr>
-            <tr>
-              <td class="tg-yw4l">
-                rate_code
-              </td>
-              <td class="tg-yw4l">
-                Taximeter rate. 
-              </td>
-              <td class="tg-yw4l">
-                N/A
-              </td>
-            </tr>
-            <tr>
-              <td class="tg-b7b8">
-                store_and_fwd_flag
-              </td>
-              <td class="tg-b7b8">
-                Unknown attribute.
-              </td>
-              <td class="tg-b7b8">
-                N/A
-              </td>
-            </tr>
-            <tr>
-              <td class="tg-yw4l">
-                pickup_datetime
-              </td>
-              <td class="tg-yw4l">
-                Start timestamp of the trip. Presented in the format mm-dd-yyyy hh24:mm:ss.
-              </td>
-              <td class="tg-yw4l">
-                N/A
-              </td>
-            </tr>
-            <tr>
-              <td class="tg-b7b8">
-                dropoff_datetime
-              </td>
-              <td class="tg-b7b8">
-                End timestamp of the trip. Presented in the format mm-dd-yyyy hh24:mm:ss.
-              </td>
-              <td class="tg-b7b8">
-                N/A
-              </td>
-            </tr>
-            <tr>
-              <td class="tg-yw4l">
-                passenger_count
-              </td>
-              <td class="tg-yw4l">
-                Number of passengers on the trip. Default value is 1.
-              </td>
-              <td class="tg-yw4l">
-                0 to 255
-              </td>
-            </tr>
-            <tr>
-              <td class="tg-b7b8">
-                trip_time_in_secs
-              </td>
-              <td class="tg-b7b8">
-                Trip time measured by the taximeter, in seconds.
-              </td>
-              <td class="tg-b7b8">
-                -6480 to 4,294,966
-              </td>
-            </tr>
-            <tr>
-              <td class="tg-yw4l">
-                trip_distance
-              </td>
-              <td class="tg-yw4l">
-                Trip distance measured by the taximeter, in miles.
-              </td>
-              <td class="tg-yw4l">
-                0.00 to 15,331,800.00
-                <br>
-              </td>
-            </tr>
-            <tr>
-              <td class="tg-b7b8">
-                pickup_longitude
-              </td>
-              <td class="tg-b7b8">
-                GPS longtitude coordinate of the pickup location.
-              </td>
-              <td class="tg-b7b8">
-                -3084.2959 to 2945.9587
-              </td>
-            </tr>
-            <tr>
-              <td class="tg-yw4l">
-                pickup_latitude
-              </td>
-              <td class="tg-yw4l">
-                GPS latitude coordinate of the pickup location.
-              </td>
-              <td class="tg-yw4l">
-                -3547.9207 to 3310.3645
-              </td>
-            </tr>
-            <tr>
-              <td class="tg-b7b8">
-                dropoff_longitude
-              </td>
-              <td class="tg-b7b8">
-                GPS longitude coordinate of the drop off location.
-              </td>
-              <td class="tg-b7b8">
-                -3116.2698 to 2386.9951
-              </td>
-            </tr>
-            <tr>
-              <td class="tg-yw4l">
-                dropoff_latitude
-              </td>
-              <td class="tg-yw4l">
-                GPS latitude coordinate of the drop off location.
-              </td>
-              <td class="tg-yw4l">
-                -3547.9207 to 3577.1321
-              </td>
-            </tr>
-        </table>
-        <table class="tg">
-          <col style="width:25%">
-          <col style="width:45%">
-          <col style="width:30%">
-          <tr>
-            <th class="tg-hgcj" colspan="3">
-              trip_fare
-            </th>
-          </tr>
-          <tr>
-            <th class="tg-e3zv">
-              Attribute
-            </th>
-            <th class="tg-e3zv">
-              Description
-            </th>
-            <th class="tg-e3zv">
-              Range
-            </th>
-          </tr>
-          <tr>
-            <td class="tg-031e">
-              medallion
-            </td>
-            <td class="tg-031e">
-              Output of applying an MD5 hash on the unique alphanumeric code assigned to each cab.
-            </td>
-            <td class="tg-031e">
-              N/A
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-031e">
-              hack_license
-            </td>
-            <td class="tg-031e">
-              Output of applying an MD5 hash on the unique alphanumeric code assigned to each cab driver.
-            </td>
-            <td class="tg-031e">
-              N/A
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-031e">
-              vendor_id
-            </td>
-            <td class="tg-031e">
-              The vendor assigned to perform the Taxicab Passenger Enhancements Project (TPEP). VTS refers to work performed by Verifone Transportation Systems while CMT is for work by Mobile Knowledge Systems Inc.
-            </td>
-            <td class="tg-031e">
-              N/A
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-031e">
-              pickup_datetime
-            </td>
-            <td class="tg-031e">
-              Start timestamp of the trip. Presented in the format mm-dd-yyyy hh24:mm:ss.
-            </td>
-            <td class="tg-031e">
-              N/A
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-031e">
-              payment_type
-            </td>
-            <td class="tg-031e">
-              CSH: Cash
-              <br>
-              CRD: Credit card
-              <br>
-              NOC: No charge
-              <br>
-              DIS: Disputed fare
-              <br>
-              UNK: Unknown
-            </td>
-            <td class="tg-031e">
-              N/A
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-031e">
-              fare_amount
-            </td>
-            <td class="tg-031e">
-              The meter fare, in USD.
-            </td>
-            <td class="tg-031e">
-              -$1430.00 to $158,995.81
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-031e">
-              surcharge
-            </td>
-            <td class="tg-031e">
-              Extra fees, such as rush hour and overnight surcharges, in USD.
-            </td>
-            <td class="tg-031e">
-              -$19.50 to $854.50
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-031e">
-              mta_tax
-            </td>
-            <td class="tg-031e">
-              Metropolitan commuter transportation mobility tax, in USD.
-            </td>
-            <td class="tg-031e">
-              -$0.50 to $80.05
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-031e">
-              tip_amount
-            </td>
-            <td class="tg-031e">
-              Tip amount, in USD.
-            </td>
-            <td class="tg-031e">
-              -$96.82 to $888.19
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-031e">
-              tolls_amount
-            </td>
-            <td class="tg-031e">
-              Total price paid for tolls, summed across all tolls for the trip, in USD.
-            </td>
-            <td class="tg-031e">
-              -$22.25 to $960.09
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-031e">
-              total_amount
-            </td>
-            <td class="tg-031e">
-              Total charges presented to the passenger at time of fare payment (includes tip for non-cash trips), in USD.
-            </td>
-            <td class="tg-031e">
-              -$1430.00 to $685,908.10
-            </td>
-          </tr>
-        </table>
-      </p>
-      <h2>
-        Cleaning the Medallions
-      </h2>
-      <p>
-        Those with a keen sense of observation will realize that there is something funky going on with parts of the data. 
-        <br>
-        <br>
-        For example, passenger counts ranging from 0 to 255 sure look fishy. Last I checked, it is pretty difficult to get that many people into a car, and having 0 passengers sounds a lot like the plot of the next blockbuster horror. Let's proceed field by field to squash these errors.
-      </p>
-      <h3>
-        i. Passenger Count
-      </h3>
-      <p>
-        <table class="tg">
-          <col style="width:30%">
-          <col style="width:30%">
-          <col style="width:40%">
-          <tr>
-            <th class="tg-yw4l">
-              passenger_count
-            </th>
-            <th class="tg-yw4l">
-              count
-            </th>
-          </tr>
-          <tr>
-            <td class="tg-yw4l">
-              0
-            </td>
-            <td class="tg-yw4l">
-              5,035
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-yw4l">
-              1
-            </td>
-            <td class="tg-yw4l">
-              121,959,711
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-yw4l">
-              2
-            </td>
-            <td class="tg-yw4l">
-              23,517,494
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-yw4l">
-              3
-            </td>
-            <td class="tg-yw4l">
-              7,315,829
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-yw4l">
-              4
-            </td>
-            <td class="tg-yw4l">
-              3,582,103
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-yw4l">
-              5
-            </td>
-            <td class="tg-yw4l">
-              10,034,696
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-yw4l">
-              6
-            </td>
-            <td class="tg-yw4l">
-              6,764,789
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-yw4l">
-              7
-            </td>
-            <td class="tg-yw4l">
-              35
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-yw4l">
-              8
-            </td>
-            <td class="tg-yw4l">
-              25
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-yw4l">
-              9
-            </td>
-            <td class="tg-yw4l">
-              26
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-yw4l">
-              129
-            </td>
-            <td class="tg-yw4l">
-              1
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-yw4l">
-              208
-            </td>
-            <td class="tg-yw4l">
-              13
-            </td>
-          </tr>
-          <tr>
-            <td class="tg-yw4l">
-              255
-            </td>
-            <td class="tg-yw4l">
-              2
-            </td>
-          </tr>
-      </table>
-      A quick check with the 
-      <a href="http://www.nyc.gov/html/tlc/html/faq/faq_pass.shtml#3">
-        NYC Taxi & Limousine Commission
-      </a>
-      reveals that the maximum legal number of passengers in a medallion is 4. 
-      <br>
-      <br>
-      Therefore, it is pretty amusing to see the high instances of extreme honesty from medallion drivers with 5 or 6 passengers, or maybe its simply a case of 
-      <a href="https://en.wikipedia.org/wiki/Typographical_error">
-        fat finger syndrome
-      </a>
-      ? As we are uncertain of the mechanism of how this field is captured, we shall set the error-free limits of this field to be between 1 and 6, ends inclusive.
-    </p>
-    
-    <h3>
-      ii. Trip Time
-    </h3>
-    <p>
-      The large number of negative trip times seem to suggest that many amongst us have mastered time travel. Unfortunately, we will have to remove them from our population. This can be easily done by requiring that trip time be equal to the difference between the drop off and pick-up times. This will leave us with quite a few trips where trip time is zero, which we will remove too. 
-    </p>
-    
-    <h3>
-      iii. Trip Distance
-    </h3>
-    <p>
-      We will take a simple approach to this and simply remove all entries where trip distance is zero. 
-      <br>
-      A more complex approach will involve ensuring that the distance travelled is not smaller the cartesian (straight-line) distance between the pickup and dropoff points, as that is physically impossible.
-    </p>
-    
-    <h3>
-      iv. GPS Coordinates of Pickup and Dropoff Locations
-    </h3>
-    <p>
-      Most of us are not geographers, and thank god to Google for the rescue. <a href="http://library.oceanteacher.org/OTMediawiki/index.php/Geolocation_by_Latitude_and_Longitude">Oceanteacher.org</a> tells us that the geo-coordindate system works by taking the center (0,0), a point somewhere in the Gulf of Guinea.
-      <br><br>
-      A +90 latitude brings us to the North Pole, while -90, you guessed it, represents the South Pole. Longitude ranges from -180 to 180, which sums up to 360 degrees.
-      <br><br>
-      We can definitely do better by removing all values out of range. According to <a href="http://www.netstate.com/states/geography/ny_geography.htm">Netstate</a>, New York spans a longitude of -79.4554 to -71.4725, and a latitude of 40.2940 to 45.042.
-    </p>
-    
-    <h3>
-      v. Fare Amount
-    </h3>
-    <p>
-      As of 2010, the <a href="http://www.nyc.gov/html/tlc/html/passenger/taxicab_rate.shtml">NYC Taxi & Limousine Commission</a> has set the initial fares to be $2.50. This makes our task of clearing the strange and hilarous negative fares a little easier.
-      <br><br>
-      Another area which deserves our attention is the large numbers of folks who appear to be over or underpaying their fares due to dodgy travel distances logged. We take a rather liberal approach here and remove any entries where the cost per mile is less than $2.50 or more than $30.00.
-    </p>
-    
-    <h3>
-      vi. Total Amount
-    </h3>
-    <p>
-      While it appears that we're on an erroenous data zapping spree, this field deserves a second look. 
-      
-      <table class="tg">
-  <tr>
-    <th class="tg-yw4l">fare_amount</th>
-    <th class="tg-yw4l">surcharge</th>
-    <th class="tg-yw4l">mta_tax</th>
-    <th class="tg-yw4l">tip_amount</th>
-    <th class="tg-yw4l">tolls_amount</th>
-    <th class="tg-yw4l">total_amount</th>
-  </tr>
-  <tr>
-    <td class="tg-yw4l">$33.00</td>
-    <td class="tg-yw4l">$0.50</td>
-    <td class="tg-yw4l">$0.50</td>
-    <td class="tg-yw4l">$0.00</td>
-    <td class="tg-yw4l">$0.00</td>
-    <td class="tg-yw4l">$685,908.10</td>
-  </tr>
-</table>
-
-Indeed, there are records where the only erroneous field is total_amount. Therefore, we will instead derive this field ourselves and ignore this field.
-    </p>
-  
-    <h3>
-      vii. Attack of the Clones
-    </h3>
-  <p>
-    We have come a long way to coming up with a cleaner dataset. However, you will notice an anomaly when you join the tables on medallion, hack license and pickup times.
-   <br>
-   <img src="images/original.png" alt="duplicated september fares" class="inline"/>
-   <br>
-   The spike isn't due to people suddenly feeling great urges to take cabs in September. It is due to the fare data for September being duplicated in the trip_fare table, which we will have to account for and remove.
-  </p>
-
-<h2>
-  Let the Analysis Begin!
-</h2>
-<p>
-  Putting it together, we arrive at a query that filters out records we identified as erroneous. It is worth noting that another person looking at this dataset will come to slightly (or totally!) different conclusions, and this is totally alright. The key is knowing how we arrive at our conclusions and being able to intelligently weight the pros and cons on the treatment of the raw data.
-  <br>
-  <img src="images/original_vs_cleaned.png" alt="original versus cleaned data by month" class="inline"/>
-  <br>
-  Across each month, with the exception of May, June and July, the cleaned dataset maintains the same ridership trends as the original dataset.
-</p>
-
-
-    <h2>
-      Credits
-    </h2>
-    <p>
-      <a href="http://chriswhong.com">
-        Chris Whong - For invoking FOIL (The Freedom of Information Law) to retrieve this amazing dataset.
-      </a>
-      
-    </p>
-    <h2>
-      Appendix
-    </h2>
-    <p>
-    </p>
-  </section>
-  <footer>
-    <p>
-      This project is maintained by 
-      <a href="https://github.com/jumpypotato">
-        jumpypotato
-      </a>
-    </p>
-    <p>
-      <small>
-        Hosted on GitHub Pages &mdash; Theme by 
-        <a href="https://github.com/orderedlist">
-          orderedlist
-        </a>
-      </small>
-    </p>
-  </footer>
-</div>
-<script src="javascripts/scale.fix.js">
-</script>
-</body>
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="chrome=1">
+      <title>
+         Foiling NYC Cabs
+      </title>
+      <link rel="stylesheet" href="stylesheets/styles.css">
+      <link rel="stylesheet" href="stylesheets/github-light.css">
+      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+      <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <![endif]-->
+   </head>
+   <body>
+      <div class="wrapper">
+         <header>
+            <h1>
+               Big Querying the Medallions
+            </h1>
+            <p>
+            </p>
+            <p class="view">
+               <a href="https://github.com/jumpypotato/foiling_nyc_cabs">
+               View the Project on GitHub 
+               <small>
+               jumpypotato/foiling_nyc_cabs
+               </small>
+               </a>
+            </p>
+         </header>
+         <section>
+            <h2>
+               Background
+            </h2>
+            <p>
+               With the 
+               <a href="https://en.wikipedia.org/wiki/Legal_status_of_Uber%27s_service">
+               hype
+               </a>
+               around the legality of Uber in many of the cities that it operates in, it makes all the sense to find out more about the people most affected by this disruptive force; the licensed taxi operators.
+               <br>
+               <br>
+               If you love data (and lots of it), you're in for a real treat! 
+            </p>
+            <h2>
+               Show Me the Data
+            </h2>
+            <p>
+               Traditionally, one would have to conduct laborous surveys, one taxi operator at a time. The data was initially retrieved by Chris Whong, a data visualization analyst, through a FOIL (Freedom of Information Law) request. In its entirety, it comes in at a whopping 18.7gb compressed.
+               <br>
+               <br>
+               Fortunately, the internet is full of amazing people and the dataset met Google engineer Jason Hall. It now lives happily as a 
+               <a href="https://bigquery.cloud.google.com/table/imjasonh-storage:nyctaxi.trip_fare">
+               Google Big Query project
+               </a>
+               .
+            </p>
+            <h2>
+               Think Big
+            </h2>
+            <p>
+               Ideally, we should first come up with a set of hypotheses before delving into data collection/analysis. This is to decrease the likelihood that we frame the problem in a way that is overly limiting. Our case here is a little special as the data has already been creative. However, we should not let this luxury stifle our ability to get creative and imaginative about our analysis.
+               <br>
+               <br>
+               The data is stored in two tables; trip_data and trip_fare.
+               <br>
+            <table class="tg">
+               <col style="width:25%">
+               <col style="width:45%">
+               <col style="width:30%">
+               <tr>
+                  <th class="tg-hgcj" colspan="3">
+                     trip_data
+                  </th>
+               </tr>
+               <tr>
+                  <th class="tg-yw4l">
+                     Attribute
+                  </th>
+                  <th class="tg-yw4l">
+                     Description
+                  </th>
+                  <th class="tg-yw4l">
+                     Range
+                  </th>
+               </tr>
+               <tr>
+                  <td class="tg-b7b8">
+                     medallion
+                  </td>
+                  <td class="tg-b7b8">
+                     Output of applying an MD5 hash on the unique alphanumeric code assigned to each cab.
+                  </td>
+                  <td class="tg-b7b8">
+                     N/A
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     hack_license
+                  </td>
+                  <td class="tg-yw4l">
+                     Output of applying an MD5 hash on the unique alphanumeric code assigned to each cab driver.
+                  </td>
+                  <td class="tg-yw4l">
+                     N/A
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-b7b8">
+                     vendor_id
+                  </td>
+                  <td class="tg-b7b8">
+                     The vendor assigned to perform the Taxicab Passenger Enhancements Project (TPEP). VTS refers to work performed by Verifone Transportation Systems while CMT is for work by Mobile Knowledge Systems Inc.
+                  </td>
+                  <td class="tg-b7b8">
+                     N/A
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     rate_code
+                  </td>
+                  <td class="tg-yw4l">
+                     Taximeter rate. 
+                  </td>
+                  <td class="tg-yw4l">
+                     N/A
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-b7b8">
+                     store_and_fwd_flag
+                  </td>
+                  <td class="tg-b7b8">
+                     Unknown attribute.
+                  </td>
+                  <td class="tg-b7b8">
+                     N/A
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     pickup_datetime
+                  </td>
+                  <td class="tg-yw4l">
+                     Start timestamp of the trip. Presented in the format mm-dd-yyyy hh24:mm:ss.
+                  </td>
+                  <td class="tg-yw4l">
+                     N/A
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-b7b8">
+                     dropoff_datetime
+                  </td>
+                  <td class="tg-b7b8">
+                     End timestamp of the trip. Presented in the format mm-dd-yyyy hh24:mm:ss.
+                  </td>
+                  <td class="tg-b7b8">
+                     N/A
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     passenger_count
+                  </td>
+                  <td class="tg-yw4l">
+                     Number of passengers on the trip. Default value is 1.
+                  </td>
+                  <td class="tg-yw4l">
+                     0 to 255
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-b7b8">
+                     trip_time_in_secs
+                  </td>
+                  <td class="tg-b7b8">
+                     Trip time measured by the taximeter, in seconds.
+                  </td>
+                  <td class="tg-b7b8">
+                     -6480 to 4,294,966
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     trip_distance
+                  </td>
+                  <td class="tg-yw4l">
+                     Trip distance measured by the taximeter, in miles.
+                  </td>
+                  <td class="tg-yw4l">
+                     0.00 to 15,331,800.00
+                     <br>
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-b7b8">
+                     pickup_longitude
+                  </td>
+                  <td class="tg-b7b8">
+                     GPS longtitude coordinate of the pickup location.
+                  </td>
+                  <td class="tg-b7b8">
+                     -3084.2959 to 2945.9587
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     pickup_latitude
+                  </td>
+                  <td class="tg-yw4l">
+                     GPS latitude coordinate of the pickup location.
+                  </td>
+                  <td class="tg-yw4l">
+                     -3547.9207 to 3310.3645
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-b7b8">
+                     dropoff_longitude
+                  </td>
+                  <td class="tg-b7b8">
+                     GPS longitude coordinate of the drop off location.
+                  </td>
+                  <td class="tg-b7b8">
+                     -3116.2698 to 2386.9951
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     dropoff_latitude
+                  </td>
+                  <td class="tg-yw4l">
+                     GPS latitude coordinate of the drop off location.
+                  </td>
+                  <td class="tg-yw4l">
+                     -3547.9207 to 3577.1321
+                  </td>
+               </tr>
+            </table>
+            <table class="tg">
+               <col style="width:25%">
+               <col style="width:45%">
+               <col style="width:30%">
+               <tr>
+                  <th class="tg-hgcj" colspan="3">
+                     trip_fare
+                  </th>
+               </tr>
+               <tr>
+                  <th class="tg-e3zv">
+                     Attribute
+                  </th>
+                  <th class="tg-e3zv">
+                     Description
+                  </th>
+                  <th class="tg-e3zv">
+                     Range
+                  </th>
+               </tr>
+               <tr>
+                  <td class="tg-031e">
+                     medallion
+                  </td>
+                  <td class="tg-031e">
+                     Output of applying an MD5 hash on the unique alphanumeric code assigned to each cab.
+                  </td>
+                  <td class="tg-031e">
+                     N/A
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-031e">
+                     hack_license
+                  </td>
+                  <td class="tg-031e">
+                     Output of applying an MD5 hash on the unique alphanumeric code assigned to each cab driver.
+                  </td>
+                  <td class="tg-031e">
+                     N/A
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-031e">
+                     vendor_id
+                  </td>
+                  <td class="tg-031e">
+                     The vendor assigned to perform the Taxicab Passenger Enhancements Project (TPEP). VTS refers to work performed by Verifone Transportation Systems while CMT is for work by Mobile Knowledge Systems Inc.
+                  </td>
+                  <td class="tg-031e">
+                     N/A
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-031e">
+                     pickup_datetime
+                  </td>
+                  <td class="tg-031e">
+                     Start timestamp of the trip. Presented in the format mm-dd-yyyy hh24:mm:ss.
+                  </td>
+                  <td class="tg-031e">
+                     N/A
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-031e">
+                     payment_type
+                  </td>
+                  <td class="tg-031e">
+                     CSH: Cash
+                     <br>
+                     CRD: Credit card
+                     <br>
+                     NOC: No charge
+                     <br>
+                     DIS: Disputed fare
+                     <br>
+                     UNK: Unknown
+                  </td>
+                  <td class="tg-031e">
+                     N/A
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-031e">
+                     fare_amount
+                  </td>
+                  <td class="tg-031e">
+                     The meter fare, in USD.
+                  </td>
+                  <td class="tg-031e">
+                     -$1430.00 to $158,995.81
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-031e">
+                     surcharge
+                  </td>
+                  <td class="tg-031e">
+                     Extra fees, such as rush hour and overnight surcharges, in USD.
+                  </td>
+                  <td class="tg-031e">
+                     -$19.50 to $854.50
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-031e">
+                     mta_tax
+                  </td>
+                  <td class="tg-031e">
+                     Metropolitan commuter transportation mobility tax, in USD.
+                  </td>
+                  <td class="tg-031e">
+                     -$0.50 to $80.05
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-031e">
+                     tip_amount
+                  </td>
+                  <td class="tg-031e">
+                     Tip amount, in USD.
+                  </td>
+                  <td class="tg-031e">
+                     -$96.82 to $888.19
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-031e">
+                     tolls_amount
+                  </td>
+                  <td class="tg-031e">
+                     Total price paid for tolls, summed across all tolls for the trip, in USD.
+                  </td>
+                  <td class="tg-031e">
+                     -$22.25 to $960.09
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-031e">
+                     total_amount
+                  </td>
+                  <td class="tg-031e">
+                     Total charges presented to the passenger at time of fare payment (includes tip for non-cash trips), in USD.
+                  </td>
+                  <td class="tg-031e">
+                     -$1430.00 to $685,908.10
+                  </td>
+               </tr>
+            </table>
+            </p>
+            <h2>
+               Cleaning the Medallions
+            </h2>
+            <p>
+               Those with a keen sense of observation will realize that there is something funky going on with parts of the data. 
+               <br>
+               <br>
+               For example, passenger counts ranging from 0 to 255 sure look fishy. Last I checked, it is pretty difficult to get that many people into a car, and having 0 passengers sounds a lot like the plot of the next blockbuster horror. Let's proceed field by field to squash these errors.
+            </p>
+            <h3>
+               i. Passenger Count
+            </h3>
+            <p>
+            <table class="tg">
+               <col style="width:30%">
+               <col style="width:30%">
+               <col style="width:40%">
+               <tr>
+                  <th class="tg-yw4l">
+                     passenger_count
+                  </th>
+                  <th class="tg-yw4l">
+                     count
+                  </th>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     0
+                  </td>
+                  <td class="tg-yw4l">
+                     5,035
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     1
+                  </td>
+                  <td class="tg-yw4l">
+                     121,959,711
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     2
+                  </td>
+                  <td class="tg-yw4l">
+                     23,517,494
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     3
+                  </td>
+                  <td class="tg-yw4l">
+                     7,315,829
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     4
+                  </td>
+                  <td class="tg-yw4l">
+                     3,582,103
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     5
+                  </td>
+                  <td class="tg-yw4l">
+                     10,034,696
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     6
+                  </td>
+                  <td class="tg-yw4l">
+                     6,764,789
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     7
+                  </td>
+                  <td class="tg-yw4l">
+                     35
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     8
+                  </td>
+                  <td class="tg-yw4l">
+                     25
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     9
+                  </td>
+                  <td class="tg-yw4l">
+                     26
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     129
+                  </td>
+                  <td class="tg-yw4l">
+                     1
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     208
+                  </td>
+                  <td class="tg-yw4l">
+                     13
+                  </td>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">
+                     255
+                  </td>
+                  <td class="tg-yw4l">
+                     2
+                  </td>
+               </tr>
+            </table>
+            A quick check with the 
+            <a href="http://www.nyc.gov/html/tlc/html/faq/faq_pass.shtml#3">
+            NYC Taxi & Limousine Commission
+            </a>
+            reveals that the maximum legal number of passengers in a medallion is 4. 
+            <br>
+            <br>
+            Therefore, it is pretty amusing to see the high instances of extreme honesty from medallion drivers with 5 or 6 passengers, or maybe its simply a case of 
+            <a href="https://en.wikipedia.org/wiki/Typographical_error">
+            fat finger syndrome
+            </a>
+            ? As we are uncertain of the mechanism of how this field is captured, we shall set the error-free limits of this field to be between 1 and 6, ends inclusive.
+            </p>
+            <h3>
+               ii. Trip Time
+            </h3>
+            <p>
+               The large number of negative trip times seem to suggest that many amongst us have mastered time travel. Unfortunately, we will have to remove them from our population. This can be easily done by requiring that trip time be equal to the difference between the drop off and pick-up times. This will leave us with quite a few trips where trip time is zero, which we will remove too. 
+            </p>
+            <h3>
+               iii. Trip Distance
+            </h3>
+            <p>
+               We will take a simple approach to this and simply remove all entries where trip distance is zero. 
+               <br>
+               A more complex approach will involve ensuring that the distance travelled is not smaller the cartesian (straight-line) distance between the pickup and dropoff points, as that is physically impossible.
+            </p>
+            <h3>
+               iv. GPS Coordinates of Pickup and Dropoff Locations
+            </h3>
+            <p>
+               Most of us are not geographers, and thank god to Google for the rescue. <a href="http://library.oceanteacher.org/OTMediawiki/index.php/Geolocation_by_Latitude_and_Longitude">Oceanteacher.org</a> tells us that the geo-coordindate system works by taking the center (0,0), a point somewhere in the Gulf of Guinea.
+               <br><br>
+               A +90 latitude brings us to the North Pole, while -90, you guessed it, represents the South Pole. Longitude ranges from -180 to 180, which sums up to 360 degrees.
+               <br><br>
+               We can definitely do better by removing all values out of range. According to <a href="http://www.netstate.com/states/geography/ny_geography.htm">Netstate</a>, New York spans a longitude of -79.4554 to -71.4725, and a latitude of 40.2940 to 45.042.
+            </p>
+            <h3>
+               v. Fare Amount
+            </h3>
+            <p>
+               As of 2010, the <a href="http://www.nyc.gov/html/tlc/html/passenger/taxicab_rate.shtml">NYC Taxi & Limousine Commission</a> has set the initial fares to be $2.50. This makes our task of clearing the strange and hilarous negative fares a little easier.
+               <br><br>
+               Another area which deserves our attention is the large numbers of folks who appear to be over or underpaying their fares due to dodgy travel distances logged. We take a rather liberal approach here and remove any entries where the cost per mile is less than $2.50 or more than $30.00.
+            </p>
+            <h3>
+               vi. Total Amount
+            </h3>
+            <p>
+               While it appears that we're on an erroenous data zapping spree, this field deserves a second look. 
+            <table class="tg">
+               <tr>
+                  <th class="tg-yw4l">fare_amount</th>
+                  <th class="tg-yw4l">surcharge</th>
+                  <th class="tg-yw4l">mta_tax</th>
+                  <th class="tg-yw4l">tip_amount</th>
+                  <th class="tg-yw4l">tolls_amount</th>
+                  <th class="tg-yw4l">total_amount</th>
+               </tr>
+               <tr>
+                  <td class="tg-yw4l">$33.00</td>
+                  <td class="tg-yw4l">$0.50</td>
+                  <td class="tg-yw4l">$0.50</td>
+                  <td class="tg-yw4l">$0.00</td>
+                  <td class="tg-yw4l">$0.00</td>
+                  <td class="tg-yw4l">$685,908.10</td>
+               </tr>
+            </table>
+            Indeed, there are records where the only erroneous field is total_amount. Therefore, we will instead derive this field ourselves and ignore this field.
+            </p>
+            <h3>
+               vii. Attack of the Clones
+            </h3>
+            <p>
+               We have come a long way to coming up with a cleaner dataset. However, you will notice an anomaly when you join the tables on medallion, hack license and pickup times.
+               <br>
+               <img src="images/original.png" alt="duplicated september fares" class="inline"/>
+               <br>
+               The spike isn't due to people suddenly feeling great urges to take cabs in September. It is due to the fare data for September being duplicated in the trip_fare table, which we will have to account for and remove.
+            </p>
+            <h2>
+               Let the Analysis Begin!
+            </h2>
+            <p>
+               Putting it together, we arrive at a query that filters out records we identified as erroneous. It is worth noting that another person looking at this dataset will come to slightly (or totally!) different conclusions, and this is totally alright. The key is knowing how we arrive at our conclusions and being able to intelligently weight the pros and cons on the treatment of the raw data.
+               <br>
+               <img src="images/original_vs_cleaned.png" alt="original versus cleaned data by month" class="inline"/>
+               <br>
+               Across each month, with the exception of May, June and July, the cleaned dataset maintains the same ridership trends as the original dataset.
+            </p>
+            <h2>
+               Credits
+            </h2>
+            <p>
+               <a href="http://chriswhong.com">
+               Chris Whong - For invoking FOIL (The Freedom of Information Law) to retrieve this amazing dataset.
+               </a>
+            </p>
+            <h2>
+               Appendix
+            </h2>
+            <p>
+            </p>
+         </section>
+         <footer>
+            <p>
+               This project is maintained by 
+               <a href="https://github.com/jumpypotato">
+               jumpypotato
+               </a>
+            </p>
+            <p>
+               <small>
+               Hosted on GitHub Pages &mdash; Theme by 
+               <a href="https://github.com/orderedlist">
+               orderedlist
+               </a>
+               </small>
+            </p>
+         </footer>
+      </div>
+      <script src="javascripts/scale.fix.js"></script>
+   </body>
 </html>
