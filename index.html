@@ -600,7 +600,7 @@
             <p>
                We have come a long way to coming up with a cleaner dataset. However, you will notice an anomaly when you join the tables on medallion, hack license and pickup times.
                <br>
-               <img src="images/original.png" alt="duplicated september fares" class="inline"/>
+               <img src="images/original.png" alt="duplicated september fares"/>
                <br>
                The spike isn't due to people suddenly feeling great urges to take cabs in September. It is due to the fare data for September being duplicated in the trip_fare table, which we will have to account for and remove.
             </p>
@@ -610,11 +610,11 @@
             <p>
                Putting it together, we arrive at a query that filters out records we identified as erroneous. It is worth noting that another person looking at this dataset will come to slightly (or totally!) different conclusions, and this is totally alright. The key is knowing how we arrive at our conclusions and being able to intelligently weight the pros and cons on the treatment of the raw data.
                <br>
-               <img src="images/original_vs_cleaned.png" alt="original versus cleaned data by month" class="inline"/>
+               <img src="images/original_vs_cleaned.png" alt="original versus cleaned data by month"/>
                <br>
                Across each month, with the exception of May, June and July, the cleaned dataset maintains the same ridership trends as the original dataset. This is definitely good news, as the general trends are kept intact.
                <br>
-               <img src="images/total_weekly_earnings.png" alt="earnings by week" class="inline"/>
+               <img src="images/total_weekly_earnings.png" alt="earnings by week"/>
                <br>
                Broken down by week, I'm certainly surprised and somewhat baffled by some of the findings.
                <br><br>
@@ -639,7 +639,7 @@
                Credit Cards Magically Improve Tipping Instances?
             </h4>
             <p>
-               <img src="images/tips/tipping_ratios_by_payment_type_nofigsize.png" alt="tipping ratios by payment type" class="inline"/>
+               <img src="images/tips/tipping_ratios_by_payment_type_nofigsize.png" alt="tipping ratios by payment type"/>
                <br>
                The above plot, taken at face value, may seem to suggest that passengers paying cash are the personifications of <a href="http://www.watchmojo.com/suggest/Top+10+Stingy+Characters+from+Kid+Shows">Mr. Crabs from Spongebob</a>, and that the use of credit cards will magically result in more tips for the drivers.
                <br><br>
@@ -653,7 +653,7 @@
             <p>
                Does the very thought of having to tip cause great anxiety in you? Give too little and be seen as a miser or too much and feel the pain of losing out.
             <br><br>
-               <img src="images/tips/tip_to_fare_percentage.png" alt="tip to fare percentage" class="inline"/>
+               <img src="images/tips/tip_to_fare_percentage.png" alt="tip to fare percentage"/>
                If you tip between 20% to 25% of the total fare, well done! You make up about 52% of the tipping population. It is also rather sad to note that not giving any tips is the 7th most popular choice, making up 3.32% of the credit card paid trips.
             </p>
             <h4>
@@ -662,6 +662,13 @@
             <p>
                <img src="images/tips/avg_tip_fare_percentage_by_hour.png" alt="average tip to fare percentage for each hour"/>
                The wee hours of the night and post 4pm, is what our data tells us. Perhaps gratitude has something to do with this, as the <a href="http://iquantny.tumblr.com/post/115096016059/how-to-fix-nycs-no-cabs-at-4pm-problem">missing-cabs-during-4pm phenomenon</a> has been well documented and explored. 
+            </p>
+            <h4>
+               Festive Tipping
+            </h4>
+            <p>
+               <img src="avg_tip_fare_percentage_by_month.png" alt="average tip to fare percentage for each month"/>
+               We next investigate if the festive cheer of the major New York holidays are extended to the drivers.
             </p>
             <h3>
                The Average Driver Is Not the Average of the Drivers
